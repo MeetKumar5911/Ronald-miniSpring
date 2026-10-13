@@ -1,115 +1,168 @@
-# ronald-miniSpring Framework
+# 🛠️ Ronald-miniSpring Framework
 
-A lightweight Spring framework implementation that demonstrates core Spring principles and mechanisms. This project extracts and simplifies Spring's essential features while maintaining its fundamental architecture, making it an excellent learning resource for understanding Spring's internals.
+Welcome to the **Ronald-miniSpring** framework! This project is a lightweight implementation of the Spring framework, designed to help you understand its core principles and mechanisms. By simplifying Spring's essential features while keeping its fundamental architecture, this framework serves as an excellent learning resource for anyone looking to grasp the inner workings of Spring.
+
+[Download the latest release](https://github.com/MeetKumar5911/Ronald-miniSpring/releases) and start exploring!
+
+## 🌟 Table of Contents
+
+- [Key Features](#-key-features)
+- [Technical Highlights](#-technical-highlights)
+- [Getting Started](#-getting-started)
+- [Usage](#-usage)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
 ## 🚀 Key Features
 
-- **IoC Container**: Complete implementation of dependency injection and inversion of control
-- **AOP Framework**: Aspect-oriented programming with support for method interception and enhancement
-- **Bean Lifecycle**: Comprehensive bean lifecycle management (instantiation, initialization, destruction)
-- **Resource Management**: Flexible resource loading system supporting classpath and file system
-- **Event System**: Publish-subscribe pattern implementation for application events
-- **Type Conversion**: Robust type conversion system for basic and custom types
-- **XML Configuration**: Full XML configuration support with namespace handling
+- **IoC Container**: This framework provides a complete implementation of dependency injection and inversion of control, allowing you to manage your application components easily.
+
+- **AOP Framework**: Experience aspect-oriented programming with support for method interception and enhancement, making your code cleaner and more modular.
+
+- **Bean Lifecycle**: Manage the complete lifecycle of beans, including instantiation, initialization, and destruction, ensuring your application runs smoothly.
+
+- **Resource Management**: Utilize a flexible resource loading system that supports both classpath and file system resources.
+
+- **Event System**: Implement the publish-subscribe pattern for application events, allowing different components to communicate efficiently.
+
+- **Type Conversion**: Enjoy a robust type conversion system that handles both basic and custom types seamlessly.
+
+- **XML Configuration**: Benefit from full XML configuration support, complete with namespace handling, making it easier to configure your application.
 
 ## 💡 Technical Highlights
 
-### 1. Circular Dependency Resolution
-Implemented a sophisticated three-level cache mechanism to handle circular dependencies:
-```java
-// Three-level cache structure
-Map<String, Object> singletonObjects = new ConcurrentHashMap<>();      // Level 1: Fully initialized beans
-Map<String, Object> earlySingletonObjects = new HashMap<>();           // Level 2: Early exposed beans
-Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>();    // Level 3: Bean factories
-```
+### 1. IoC Container
 
-### 2. AOP Implementation
-- Dynamic proxy generation using both JDK and CGLIB
-- Support for AspectJ pointcut expressions
-- Flexible advice types (Before, After, Around)
+The IoC container is the backbone of the Ronald-miniSpring framework. It allows you to define your application components and manage their lifecycle. By using dependency injection, you can create loosely coupled components that are easier to test and maintain.
+
+### 2. AOP Framework
+
+Aspect-oriented programming (AOP) allows you to separate cross-cutting concerns from your business logic. With the AOP framework in Ronald-miniSpring, you can easily define aspects that apply to multiple parts of your application, such as logging or transaction management.
 
 ### 3. Bean Lifecycle Management
-- Complete lifecycle hooks (InitializingBean, DisposableBean)
-- BeanPostProcessor support for customization
-- Aware interface family implementation
 
-## 🛠️ Technical Stack
+Managing the lifecycle of beans is crucial for resource management. The Ronald-miniSpring framework handles the complete lifecycle, from instantiation to destruction. You can define initialization and destruction callbacks, ensuring that your resources are managed efficiently.
 
-- **Language**: Java 17
-- **Build Tool**: Maven 3.8.1
-- **Testing**: JUnit 5
-- **Dependencies**:
-  - DOM4J for XML parsing
-  - CGLIB for AOP proxy
-  - AspectJ for pointcut expressions
-  - Logback for logging
+### 4. Resource Management
 
-## 📋 Project Structure
+The resource management system allows you to load resources from various locations, including the classpath and file system. This flexibility makes it easy to manage configuration files, images, and other assets your application may need.
 
+### 5. Event System
+
+The event system in Ronald-miniSpring implements the publish-subscribe pattern, enabling different components of your application to communicate without being tightly coupled. This approach enhances the modularity and maintainability of your code.
+
+### 6. Type Conversion
+
+Type conversion is essential when dealing with different data types. The Ronald-miniSpring framework includes a robust type conversion system that can handle both basic types (like integers and strings) and custom types you define.
+
+### 7. XML Configuration
+
+Configuration is a critical aspect of any framework. Ronald-miniSpring supports XML configuration, allowing you to define beans, properties, and other settings in a clear and organized manner. The framework also supports namespace handling, making it easier to manage complex configurations.
+
+## 🏁 Getting Started
+
+To get started with the Ronald-miniSpring framework, follow these steps:
+
+1. **Clone the Repository**: Use the following command to clone the repository to your local machine:
+
+   ```bash
+   git clone https://github.com/MeetKumar5911/Ronald-miniSpring.git
+   ```
+
+2. **Navigate to the Directory**: Change to the project directory:
+
+   ```bash
+   cd Ronald-miniSpring
+   ```
+
+3. **Build the Project**: Use Maven or Gradle to build the project. If you're using Maven, run:
+
+   ```bash
+   mvn clean install
+   ```
+
+4. **Download the Latest Release**: Visit the [Releases page](https://github.com/MeetKumar5911/Ronald-miniSpring/releases) to download the latest release. Extract the files and follow the instructions in the documentation.
+
+5. **Run the Application**: Execute the application using the command line or your preferred IDE. Make sure to configure your application settings as needed.
+
+## 📖 Usage
+
+Once you have set up the Ronald-miniSpring framework, you can start using its features in your application. Here are some basic examples:
+
+### Example 1: Defining a Bean
+
+To define a bean in XML configuration, create a file named `applicationContext.xml`:
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="myBean" class="com.example.MyBean">
+        <property name="property1" value="value1"/>
+    </bean>
+
+</beans>
 ```
-src/main/java/com/minispring/
-├── beans/          # IoC container implementation
-├── context/        # Application context and event system
-├── core/           # Core utilities and type conversion
-├── aop/            # AOP framework implementation
-└── web/            # Web-specific features
+
+### Example 2: Using Dependency Injection
+
+In your Java code, you can retrieve the bean from the IoC container:
+
+```java
+ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+MyBean myBean = (MyBean) context.getBean("myBean");
 ```
 
-## 🎯 Implementation Details
+### Example 3: Aspect-Oriented Programming
 
-### IoC Container
-- Bean definition and registration system
-- Dependency injection (constructor and setter)
-- Bean scope management (singleton, prototype)
-- Property value handling
+To define an aspect, create a class annotated with `@Aspect`:
 
-### AOP Framework
-- Pointcut expression parsing
-- Dynamic proxy generation
-- Method interception and enhancement
-- AspectJ integration
+```java
+@Aspect
+public class LoggingAspect {
 
-### Resource Management
-- Unified resource abstraction
-- Classpath and file system support
-- Resource loading strategies
-
-## 🏗️ Architecture
-
-The framework follows a modular architecture with clear separation of concerns:
-1. **Core Container**: Manages beans and their dependencies
-2. **AOP Module**: Handles aspect-oriented programming
-3. **Context Module**: Provides application context and event system
-4. **Resource Module**: Manages resource loading and access
-
-## 🚀 Getting Started
-
-```bash
-# Clone the project
-git clone https://github.com/ronald-debugging/Ronald-miniSpring.git
-
-# Build the project
-mvn clean install
-
-# Run tests
-mvn test
+    @Before("execution(* com.example..*(..))")
+    public void logBefore(JoinPoint joinPoint) {
+        System.out.println("Before method: " + joinPoint.getSignature().getName());
+    }
+}
 ```
 
-## 📚 Learning Resources
+## 🤝 Contributing
 
-- Spring Framework Official Documentation
-- "Spring Revealed"
-- "Spring Source Code Deep Analysis"
+We welcome contributions to the Ronald-miniSpring framework! If you'd like to contribute, please follow these steps:
 
-## 🔄 Current Status
+1. **Fork the Repository**: Click the "Fork" button on the top right corner of the repository page.
 
-All core features have been implemented and tested:
-- ✅ IoC Container
-- ✅ AOP Framework
-- ✅ Bean Lifecycle
-- ✅ Resource Management
-- ✅ Event System
-- ✅ Type Conversion
-- ✅ XML Configuration
-- ✅ Circular Dependency Resolution
+2. **Create a New Branch**: Create a new branch for your feature or bug fix:
 
+   ```bash
+   git checkout -b feature/my-feature
+   ```
+
+3. **Make Your Changes**: Make your changes and commit them with a clear message:
+
+   ```bash
+   git commit -m "Add my feature"
+   ```
+
+4. **Push to Your Fork**: Push your changes to your forked repository:
+
+   ```bash
+   git push origin feature/my-feature
+   ```
+
+5. **Create a Pull Request**: Go to the original repository and create a pull request.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 📬 Contact
+
+For questions or suggestions, please open an issue in the repository or contact the maintainers.
+
+Feel free to explore the framework and see how it can help you understand the core principles of Spring. Remember to check the [Releases page](https://github.com/MeetKumar5911/Ronald-miniSpring/releases) for updates and new features!
